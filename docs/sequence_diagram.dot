@@ -1,0 +1,24 @@
+digraph G {
+  rankdir=TB;
+  node [shape=box, style=filled, fillcolor=lightblue];
+  
+  Client [label="Client"];
+  Controller [label="Interface\nController"];
+  EncryptionService [label="Encryption\nService"];
+  InterfaceService [label="Interface\nService"];
+  TargetAPI [label="Target\nAPI"];
+  
+  edge [fontsize=10, fontcolor=darkblue];
+  
+  Client -> Controller [label="1. Send Encrypted Request"];
+  Controller -> InterfaceService [label="2. Process Request"];
+  InterfaceService -> EncryptionService [label="3. Decrypt Data"];
+  EncryptionService -> InterfaceService [label="4. Return Decrypted Data"];
+  InterfaceService -> InterfaceService [label="5. Fetch Interface Config"];
+  InterfaceService -> TargetAPI [label="6. Invoke Endpoint"];
+  TargetAPI -> InterfaceService [label="7. Return Response"];
+  InterfaceService -> EncryptionService [label="8. Encrypt Response"];
+  EncryptionService -> InterfaceService [label="9. Return Encrypted Data"];
+  InterfaceService -> Controller [label="10. Return Encrypted Response"];
+  Controller -> Client [label="11. Send Encrypted Response"];
+}
